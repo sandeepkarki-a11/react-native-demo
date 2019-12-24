@@ -1,0 +1,13 @@
+
+bsquid:CommentedOutCodeLine!"<This block of commented-out lines of code should be removed.(à¢Ñ
+?squid:S1148J"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+?squid:S1148N"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+?squid:S1148H"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+[squid:S2147M"DCombine this catch with the one at line 71, which has the same body.(åþáÿ
+{squid:UselessImportCheck"WRemove this unused import 'com.swmansion.gesturehandler.react.RNGestureHandlerPackage'.(†Š°²
+ksquid:UselessImportCheck"GRemove this unused import 'com.oblador.vectoricons.VectorIconsPackage'.(›Ï¯
+hsquid:UselessImportCheck"DRemove this unused import 'io.invertase.firebase.RNFirebasePackage'.(Ôœãà
+usquid:UselessImportCheck	"LRemove this unused import 'co.apptailor.googlesignin.RNGoogleSigninPackage'.(¥ƒ¡Þøÿÿÿÿ
+`squid:S2147I"DCombine this catch with the one at line 71, which has the same body.(¼¯•¶ùÿÿÿÿ
+[squid:S2147K"DCombine this catch with the one at line 71, which has the same body.(Å¡ß
+?squid:S1148L"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
