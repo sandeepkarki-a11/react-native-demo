@@ -12,6 +12,7 @@
   "dependencies": {
     "native-base": "^2.13.8",
     "react": "16.9.0",
+    "react-confirm-alert": "^2.4.1",
     "react-native": "0.61.5",
     "react-native-firebase": "^5.6.0",
     "react-native-gesture-handler": "^1.5.2",

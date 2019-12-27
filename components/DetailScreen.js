@@ -19,40 +19,30 @@ export default class DetailScreen extends Component {
   componentDidMount() {
     //this.handleBackPress();
     const { navigation } = this.props;
-    const data = navigation.getParam("data", "");
-    console.log("Props", data);
-    this.fetchAPIData(data.item.id);
-    console.log("IDS", data.item.id);
+    const id = navigation.getParam("id", "");
+    // console.log("Props", data);
+    this.fetchAPIData(id);
+    console.log("IDS", id);
   }
 
   fetchAPIData(id) {
     console.log("ids =", id);
-    const url = "http://dummy.restapiexample.com/api/v1/employees/id";
-    fetch(url).then(response => {
-          console.log(response);
-          return response.json();
-        }).then(data => {
-          // Work with JSON data here
-          console.log(data);
-        }).catch(err => {
-          // Do something for an error here
-          console.log("Error Reading data " + err);
-        });
-    // fetch(url, {
-    //   // method: "GET"
-    // })
-    //   .then(response => response.json())
-    //   .then((messages) => {console.log(messages);})
-    //   .then(responseJson => {
-    //     console.log(responseJson);
+    const url = `http://dummy.restapiexample.com/api/v1/employee/${id}`;
 
-    //     this.setState({
-    //       dataa: responseJson
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // Work with JSON data here
+        console.log("User detail: ", data);
+        this.setState({
+          loading: false,
+          dataa: data
+        });
+      })
+      .catch(err => {
+        // Do something for an error here
+        console.log("Error Reading data " + err);
+      });
   }
 
   // componentWillMount() {
@@ -79,29 +69,33 @@ export default class DetailScreen extends Component {
     headerTintColor: "#000000",
     headerTitleStyle: {
       flex: 1,
-      textAlign: "center"
+      textAlign: "center",
+      fontWeight: 'bold',
+      color: "#000000",
+      fontFamily: "Nunito-Regular",
+      fontSize: 18
     }
   };
   render() {
-    // const {navigation} = this.props;
-    // const data = navigation.getParam('data', '');
-
-    // console.log('Props', data);
     return (
       <View style={styles.container}>
         <Card style={styles.cardStyle}>
           <View style={{ flex: 1 }}>
             <Image
-              style={{
-                width: 150,
-                height: 150,
-                borderRadius: 150 / 2,
-                marginLeft: 10,
-                marginTop: 7
-              }}
+              style={styles.imageStyle}
               source={{ uri: this.state.fileUri }}
             />
-            <Card style={styles.innerCardView}>
+
+            <View
+              style={{
+                borderBottomColor: "#6e7273",
+                borderBottomWidth: 1,
+                marginTop: 10,
+                marginLeft: wp("10%"),
+                marginRight: wp("10%")
+              }}
+            />
+            {/* <Card style={styles.innerCardView}>
               <View
                 style={{
                   // flex: 1,
@@ -133,7 +127,7 @@ export default class DetailScreen extends Component {
                         alignSelf: "center"
                       }}
                     >
-                      {/* {data.item.id} */}
+                      {this.state.dataa.id}
                     </Text>
                   </View>
 
@@ -155,7 +149,7 @@ export default class DetailScreen extends Component {
                         width: wp("38%")
                       }}
                     >
-                      {/* {data.item.employee_name} */}
+                      {this.state.dataa.employee_name}
                     </Text>
                   </View>
                   <View
@@ -175,7 +169,7 @@ export default class DetailScreen extends Component {
                         alignSelf: "center"
                       }}
                     >
-                      {/* {data.item.employee_salary} */}
+                      {this.state.dataa.employee_salary}
                     </Text>
                   </View>
                   <View style={{ marginLeft: 10, flexDirection: "row" }}>
@@ -191,12 +185,12 @@ export default class DetailScreen extends Component {
                         alignSelf: "center"
                       }}
                     >
-                      {/* {data.item.employee_age} */}
+                      {this.state.dataa.employee_age}
                     </Text>
                   </View>
                 </View>
               </View>
-            </Card>
+            </Card> */}
           </View>
         </Card>
       </View>
@@ -232,5 +226,14 @@ const styles = StyleSheet.create({
     elevation: 4,
     borderWidth: 3,
     width: wp("85%")
+  },
+  imageStyle: {
+    width: 200,
+    height: 200,
+    borderRadius: 200 / 2,
+    marginLeft: 10,
+    alignSelf: "center",
+    resizeMode: "contain",
+    marginTop: 15
   }
 });
