@@ -26,7 +26,7 @@ export default class DetailScreen extends Component {
   }
 
   fetchAPIData(id) {
-    console.log("ids =", id);
+    console.log("detail screen ids =", id);
     const url = `http://dummy.restapiexample.com/api/v1/employee/${id}`;
 
     fetch(url)
@@ -70,9 +70,9 @@ export default class DetailScreen extends Component {
     headerTitleStyle: {
       flex: 1,
       textAlign: "center",
-      fontWeight: 'bold',
+      fontWeight: "bold",
       color: "#000000",
-      fontFamily: "Nunito-Regular",
+      fontFamily: "Lobster-Regular",
       fontSize: 18
     }
   };
@@ -86,7 +86,7 @@ export default class DetailScreen extends Component {
               source={{ uri: this.state.fileUri }}
             />
 
-            <View
+            {/* <View
               style={{
                 borderBottomColor: "#6e7273",
                 borderBottomWidth: 1,
@@ -94,95 +94,129 @@ export default class DetailScreen extends Component {
                 marginLeft: wp("10%"),
                 marginRight: wp("10%")
               }}
-            />
-            {/* <Card style={styles.innerCardView}>
+            /> */}
+
+            <View
+              style={{
+                marginTop: 20,
+                marginLeft: 20
+              }}
+            >
               <View
                 style={{
-                  // flex: 1,
-                  backgroundColor: "#fff",
-                  margin: 15,
-                  marginTop: 10
+                  flexDirection: "column"
                 }}
               >
-                <View
-                  style={{
-                    flexDirection: "column"
-                  }}
-                >
-                  <View style={{ marginLeft: 10, flexDirection: "row" }}>
+                <View style={{ marginLeft: 10, flexDirection: "row" }}>
+                  <View style={{ width: wp("35%") }}>
                     <Text
                       style={{
-                        marginTop: 10,
-                        fontSize: 15,
-                        fontWeight: "bold"
+                        fontSize: 20,
+                        fontFamily: "Lobster-Regular"
                       }}
                     >
-                      Id :{" "}
+                      Id :
                     </Text>
+                  </View>
+
+                  <View>
                     <Text
                       style={{
                         marginTop: 10,
                         marginLeft: 10,
                         fontSize: 15,
-                        alignSelf: "center"
+                        fontFamily: "Abel-Regular"
                       }}
                     >
                       {this.state.dataa.id}
                     </Text>
                   </View>
+                </View>
 
-                  <View
-                    style={{
-                      marginLeft: 10,
-                      marginTop: 5,
-                      flexDirection: "row"
-                    }}
-                  >
-                    <Text style={{ fontSize: 15, fontWeight: "bold" }}>
-                      Name :{" "}
-                    </Text>
+                <View
+                  style={{
+                    marginLeft: 10,
+                    flexDirection: "row"
+                  }}
+                >
+                 <View style={{ width: wp("35%") }}>
                     <Text
                       style={{
+                        fontSize: 20,
+                        fontFamily: "Lobster-Regular"
+                      }}
+                    >
+                      Name :
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        marginTop: 10,
                         marginLeft: 10,
                         fontSize: 15,
                         alignSelf: "center",
-                        width: wp("38%")
+                        fontFamily: "Abel-Regular"
                       }}
                     >
                       {this.state.dataa.employee_name}
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      marginLeft: 10,
-                      marginTop: 5,
-                      flexDirection: "row"
-                    }}
-                  >
-                    <Text style={{ fontSize: 15, fontWeight: "bold" }}>
-                      Salary :{" "}
-                    </Text>
+                </View>
+                <View
+                  style={{
+                    marginLeft: 10,
+                    marginTop: 5,
+                    flexDirection: "row"
+                  }}
+                >
+                 <View style={{ width: wp("35%") }}>
                     <Text
                       style={{
+                        fontSize: 20,
+                       fontFamily: "Lobster-Regular"
+                      }}
+                    >
+                      Salary : 
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        marginTop: 10,
                         marginLeft: 10,
                         fontSize: 15,
-                        alignSelf: "center"
+                        alignSelf: "center",
+                        fontFamily: "Abel-Regular"
+
                       }}
                     >
                       {this.state.dataa.employee_salary}
                     </Text>
                   </View>
-                  <View style={{ marginLeft: 10, flexDirection: "row" }}>
-                    <Text
-                      style={{ fontSize: 15, marginTop: 5, fontWeight: "bold" }}
-                    >
-                      Age :{" "}
-                    </Text>
+                </View>
+                <View style={{marginLeft: 10,
+                    marginTop: 5,
+                    flexDirection: "row" }}>
+                 <View style={{ width: wp("35%") }}>
                     <Text
                       style={{
+                        fontSize: 20,
+                        fontFamily: "Lobster-Regular"
+                      }}
+                    >
+                      Age : 
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        marginTop: 10,
                         marginLeft: 10,
                         fontSize: 15,
-                        alignSelf: "center"
+                        alignSelf: "center",
+                        fontFamily: "Abel-Regular"
+
                       }}
                     >
                       {this.state.dataa.employee_age}
@@ -190,7 +224,7 @@ export default class DetailScreen extends Component {
                   </View>
                 </View>
               </View>
-            </Card> */}
+            </View>
           </View>
         </Card>
       </View>
@@ -217,7 +251,7 @@ const styles = StyleSheet.create({
   },
   innerCardView: {
     justifyContent: "center",
-    backgroundColor: "#fff",
+    //backgroundColor: "#fff",
     borderRadius: 10,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.3,

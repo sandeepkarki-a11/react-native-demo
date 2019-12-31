@@ -22,6 +22,17 @@ export default class SplashScreen extends Component {
     firebase.auth().onAuthStateChanged(user => {
       this.props.navigation.navigate(user && data !== null ? 'App' : 'Auth');
     });
+   // this.configGmailSignIn();
+  }
+
+  configGmailSignIn = () => {
+    GoogleSignin.configure({
+      webClientId:
+        '173381546713-2iuu7kfsvmngut35kq36emsi9mab535p.apps.googleusercontent.com',
+      offlineAccess: true,
+      hostedDomain: '',
+      forceConsentPrompt: true,
+    });
   }
 
   render() {

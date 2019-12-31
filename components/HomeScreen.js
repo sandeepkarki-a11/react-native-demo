@@ -20,12 +20,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
+import { GoogleSignin } from "react-native-google-signin";
 import { Card, CardItem } from "native-base";
 let { width, height } = Dimensions.get("window");
 import Icon from "react-native-vector-icons/FontAwesome";
-import MyListItem from './MyListItem';
+import MyListItem from "./MyListItem";
 
-export default class HomeScreen extends Component{
+export default class HomeScreen extends Component {
   componentDidMount() {
     //this.handleBackPress();
     this.fetchAPIData();
@@ -112,12 +113,17 @@ export default class HomeScreen extends Component{
     );
   };
   logoutFirebase = () => {
+    GoogleSignin.revokeAccess();
+    GoogleSignin.signOut();
     firebase.auth().signOut();
   };
-  renderItem = (data) => (
-  <MyListItem
-    itemData={data}
-  />
+  renderItem = data => (
+    <MyListItem
+      onItemPress={() =>
+        this.props.navigation.navigate("DetailScreen", { id: data.item })
+      }
+      itemData={data}
+    />
   );
 
   render() {
@@ -138,6 +144,7 @@ export default class HomeScreen extends Component{
               flex: 1,
               marginLeft: wp("35%"),
               fontWeight: "bold",
+              fontFamily: "Lobster-Regular",
               fontSize: 17
             }}
           >
@@ -145,11 +152,7 @@ export default class HomeScreen extends Component{
           </Text>
           <TouchableOpacity onPress={this.logout}>
             <View style={styles.logoutStyle}>
-              <Icon
-                name="power-off"
-                size={20}
-                color="#166ec6"
-              />
+              <Icon name="power-off" size={20} color="#166ec6" />
               <Text style={{ marginLeft: 5, color: "#166ec6" }}>Logout</Text>
             </View>
           </TouchableOpacity>

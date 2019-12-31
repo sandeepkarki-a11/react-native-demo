@@ -7,15 +7,13 @@ import {
 import { Card, CardItem } from "native-base";
 
 export default class MyListItem extends PureComponent {
-    constructor(props){
-        super(props);
-    }
-     switchScreen = id => {
-    // console.log("clicked", data.item.name);
-    this.props.navigation.navigate("DetailScreen", { id: id });
-  };
+  constructor(props) {
+    super(props);
+  }
   render() {
-      console.log('props', this.props)
+    //console.log("props", this.props);
+   console.log("prop id", this.props.itemData.item.id)
+    const { onItemPress } = this.props;
     return (
       <View style={{ flex: 1, backgroundColor: "#dcd7d7" }}>
         <TouchableOpacity
@@ -24,7 +22,7 @@ export default class MyListItem extends PureComponent {
             alignItems: "center",
             backgroundColor: "#dcd7d7"
           }}
-           onPress={() => this.switchScreen(this.props.itemData.item.id)}
+           onPress={() => onItemPress() }
         >
           <Card
             style={{
@@ -84,8 +82,7 @@ export default class MyListItem extends PureComponent {
                         alignSelf: "center"
                       }}
                     >
-                    text
-                      {this.props.itemData.item.id}
+                    {this.props.itemData.item.id}
                     </Text>
                   </View>
 
@@ -107,7 +104,7 @@ export default class MyListItem extends PureComponent {
                         width: wp("38%")
                       }}
                     >
-                    test
+                      test
                       {this.props.itemData.item.employee_name}
                     </Text>
                   </View>
