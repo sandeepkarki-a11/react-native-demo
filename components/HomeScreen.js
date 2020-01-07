@@ -88,9 +88,11 @@ export default class HomeScreen extends Component {
         this.setState({
           loading: false,
           dataSource: responseJson
+        
         });
+          console.log('list data '+ dataSource);
       })
-      .catch(error => console.console.log(error));
+      .catch(error => console.log(error));
   };
 
   logout = () => {

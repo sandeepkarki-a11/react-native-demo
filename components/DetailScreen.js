@@ -27,9 +27,11 @@ export default class DetailScreen extends Component {
 
   fetchAPIData(id) {
     console.log("detail screen ids =", id);
-    const url = `http://dummy.restapiexample.com/api/v1/employee/${id}`;
+    const url = `https://dummy.restapiexample.com/api/v1/employee/${id}`;
 
-    fetch(url)
+    fetch(url, {
+      method: "GET"
+    })
       .then(response => response.json())
       .then(data => {
         // Work with JSON data here
@@ -38,19 +40,19 @@ export default class DetailScreen extends Component {
           loading: false,
           dataa: data
         });
-      })
-      .catch(err => {
-        // Do something for an error here
-        console.log("Error Reading data " + err);
       });
+      // .catch(err => {
+      //   // Do something for an error here
+      //   console.log(err.getMessage());
+      // });
   }
 
-  // componentWillMount() {
-  //   BackHandler.addEventListener(
-  //     'hardwareBackPress',
-  //     this.handleBackButtonClick,
-  //   );
-  // }
+  componentWillMount() {
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
 
   componentWillUnmount() {
     BackHandler.removeEventListener(
@@ -139,7 +141,7 @@ export default class DetailScreen extends Component {
                     flexDirection: "row"
                   }}
                 >
-                 <View style={{ width: wp("35%") }}>
+                  <View style={{ width: wp("35%") }}>
                     <Text
                       style={{
                         fontSize: 20,
@@ -170,42 +172,14 @@ export default class DetailScreen extends Component {
                     flexDirection: "row"
                   }}
                 >
-                 <View style={{ width: wp("35%") }}>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                       fontFamily: "Lobster-Regular"
-                      }}
-                    >
-                      Salary : 
-                    </Text>
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        marginTop: 10,
-                        marginLeft: 10,
-                        fontSize: 15,
-                        alignSelf: "center",
-                        fontFamily: "Abel-Regular"
-
-                      }}
-                    >
-                      {this.state.dataa.employee_salary}
-                    </Text>
-                  </View>
-                </View>
-                <View style={{marginLeft: 10,
-                    marginTop: 5,
-                    flexDirection: "row" }}>
-                 <View style={{ width: wp("35%") }}>
+                  <View style={{ width: wp("35%") }}>
                     <Text
                       style={{
                         fontSize: 20,
                         fontFamily: "Lobster-Regular"
                       }}
                     >
-                      Age : 
+                      Salary :
                     </Text>
                   </View>
                   <View>
@@ -216,7 +190,33 @@ export default class DetailScreen extends Component {
                         fontSize: 15,
                         alignSelf: "center",
                         fontFamily: "Abel-Regular"
-
+                      }}
+                    >
+                      {this.state.dataa.employee_salary}
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{ marginLeft: 10, marginTop: 5, flexDirection: "row" }}
+                >
+                  <View style={{ width: wp("35%") }}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontFamily: "Lobster-Regular"
+                      }}
+                    >
+                      Age :
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        marginTop: 10,
+                        marginLeft: 10,
+                        fontSize: 15,
+                        alignSelf: "center",
+                        fontFamily: "Abel-Regular"
                       }}
                     >
                       {this.state.dataa.employee_age}

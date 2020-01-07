@@ -39,7 +39,7 @@ export default class SignUp extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate("App"))
+      .then(() => this.props.navigation.navigate("VerificationScreen"))
       .catch(error => {
         switch (error.code) {
           case "auth/email-already-in-use":
@@ -57,6 +57,19 @@ export default class SignUp extends Component {
         }
       });
   };
+  // userDetail = (user) => {
+  //   var user = firebase.auth().currentUser;
+  //   var name, email, photoUrl, uid, emailVerified;
+
+  //   if (user != null) {
+  //     name = user.displayName;
+  //     email = user.email;
+  //     photoUrl = user.photoURL;
+  //     emailVerified = user.emailVerified;
+
+  //     console.log(email);
+  //   }
+  // };
   // check validation for the input fields
 
   checkValidation = () => {
@@ -85,12 +98,13 @@ export default class SignUp extends Component {
       // this.navigateScreen();
     }
   };
+
   onClickListner = viewId => {
     this.checkValidation;
   };
 
   openSignInScreen = () => {
-    this.props.navigation.navigate("LoginScreen");
+    this.props.navigation.navigate("VerificationScreen");
     this.setState({ email: "" });
     this.setState({ password: "" });
   };
@@ -164,6 +178,12 @@ export default class SignUp extends Component {
         >
           <Text style={{ color: "white", fontSize: 17 }}> Sign Up </Text>
         </TouchableOpacity>
+        {/* <TouchableOpacity
+          style={stylesContent.button1}
+          onPress={this.checkValidation}
+        >
+          <Text style={{ color: "white", fontSize: 17 }}> Verify email </Text>
+        </TouchableOpacity> */}
       </View>
     );
   }
@@ -206,6 +226,17 @@ stylesContent = StyleSheet.create({
     alignItems: "center",
     height: 50,
     marginTop: hp("10%"),
+    width: wp("80%"),
+    padding: 10,
+    backgroundColor: "#ac1010",
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: "#fff"
+  },
+  button1: {
+    alignItems: "center",
+    height: 50,
+    marginTop: hp("1%"),
     width: wp("80%"),
     padding: 10,
     backgroundColor: "#ac1010",

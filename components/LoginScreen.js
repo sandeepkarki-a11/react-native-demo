@@ -10,7 +10,7 @@ import {
   ToastAndroid,
   TouchableOpacity
 } from "react-native";
-
+import { Toast } from "native-base";
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -21,6 +21,7 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import firebase from "react-native-firebase";
+import toastr from "../toast-config";
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -63,18 +64,22 @@ export default class LoginScreen extends Component {
       console.log(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
+        toastr.showToast("cancelled sign in");
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (f.e. sign in) is in progress already
+        toastr.showToast("signIn in progress.");
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
+        toastr.showToast("play services not available or outdated");
       } else {
         // some other error happened
+        toastr.showToast(error.message);
       }
     }
   };
 
   handleLogin = () => {
-    // TODO: Firebase stuff...
+    // Firebase stuff...
     console.log("handleLogin");
     const { email, password } = this.state;
     try {
@@ -86,7 +91,7 @@ export default class LoginScreen extends Component {
         });
     } catch (error) {
       //console.log(error.toString(error));
-      ToastAndroid.show(error, ToastAndroid.SHORT);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
   };
   checkValidation = () => {
