@@ -1,64 +1,78 @@
 import React, { Component } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-} from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 import firebase from "react-native-firebase";
 
 export default class LoadingScreen extends Component {
-
-constructor(props) {
+  constructor(props) {
     super(props);
-     this.state = { 
-       currentUser: null,
-       isVerified: false };
+    this.state = {
+      currentUser: null
+      //  isVerified: ''
+    };
   }
-   componentDidMount() {
-    currentUser = firebase.auth();
-    this.setState({currentUser: currentUser});
-    this.setState({isVerified: currentUser.emailVerified});
-    this.saveVerifiedStatus();
+  performTimeConsumingTask = async () => {
+    return new Promise(resolve =>
+      setTimeout(() => {
+        resolve("result");
+      }, 10000)
+    );
+  };
+  async componentDidMount() {
+    // currentUser = firebase.auth();
+    console.log(
+      "current user:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ",
+      currentUser
+    );
+    this.setState({ currentUser }, () => {
+      // console.log('state is: ', this.state.currentUser)
+
+      this.saveVerifiedStatus();
+    });
+    const data = await this.performTimeConsumingTask();
+    if (data !== null) {
+      // logoutFirebase = () => {
+      //   GoogleSignin.revokeAccess();
+      //   GoogleSignin.signOut();
+      //   firebase.auth().signOut();
+      //   AsyncStorage.clear();
+      // };
+      this.props.navigation.navigate('LoginScreen');
+    }
   }
   async saveVerifiedStatus() {
     try {
-      await AsyncStorage.setItem('@isVerified', this.state.isVerified);
-      console.log('stateData= ' + this.state.isVerified);
+      //console.log('email verified::::::::: ', JSON.stringify(this.state.currentUser._user.emailVerified));
+      await AsyncStorage.setItem(
+        "@isVerified",
+        JSON.stringify(this.state.currentUser._user.emailVerified)
+      );
+      console.log("stateData= " + (await AsyncStorage.getItem("@isVerified")));
     } catch (e) {
       //saving error
     }
   }
-  // var isVerifid= firebase.auth().currentUser;
-  // console.log("isVerified", isVerified.emailVerified.toString());
-    // currentUser = firebase.auth();
-    // this.setState({ currentUser });
-
-//     storeData = async () => {
-//   try {
-//     await AsyncStorage.setItem('@isVeriviedEmail',currentUser && currentUser.emailVerified.toString())
-//   } catch (e) {
-//     // saving error
-//   }
-// }
-render() {
-  return (
+  render() {
+    return (
       <View style={styles.container}>
-        <Text style={{fontSize: 20}}> Email verification is on process, Please check your email....  
+        <Text style={{ fontSize: 20 }}>
+          {" "}
+          Email verification is on process, Please check your email and Login
+          again...
         </Text>
-        </View>
-    )
+      </View>
+    );
   }
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     margin: 50,
-    alignItems: 'center'
+    alignItems: "center"
   }
-})
+});

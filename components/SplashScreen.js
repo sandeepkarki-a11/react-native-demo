@@ -9,7 +9,6 @@ import firebase from "react-native-firebase";
 export default class SplashScreen extends Component {
    constructor(props) {
     super(props);
-     this.state = { currentUser: null };
   }
   performTimeConsumingTask = async () => {
     return new Promise(resolve =>
@@ -22,10 +21,10 @@ export default class SplashScreen extends Component {
   async componentDidMount() {
    
     const data = await this.performTimeConsumingTask();
-    const { currentUser } = firebase.auth();
-    this.setState({ currentUser });
-    //const user = firebase.auth().currentUser;
-    console.log("user: " + currentUser);
+    // const { currentUser } = firebase.auth();
+    // this.setState({ currentUser });
+    // //const user = firebase.auth().currentUser;
+    // console.log("user: " + currentUser);
     
     firebase.auth().onAuthStateChanged(user => {
     this.props.navigation.navigate(user && data !== null ? 'App' : 'Auth');

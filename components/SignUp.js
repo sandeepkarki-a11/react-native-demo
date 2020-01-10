@@ -39,57 +39,69 @@ export default class SignUp extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate("VerificationScreen"))
+      .then(
+        () => this.props.navigation.navigate("HomeScreen")
+        //   //this.sendEmailVerification;
+        //   firebase
+        //     .auth()
+        //     .currentUser.sendEmailVerification()
+        //     .then(() => this.logout())
+        // //.then(() => this.props.navigation.navigate("LoginScreen"))
+      )
       .catch(error => {
         switch (error.code) {
           case "auth/email-already-in-use":
-            console.log(`Email address ${this.state.email} already in use.`);
-          case "auth/invalid-email":
-            console.log(`Email address ${this.state.email} is invalid.`);
-          case "auth/operation-not-allowed":
-            console.log(`Error during sign up.`);
-          case "auth/weak-password":
-            console.log(
-              "Password is not strong enough. Add additional characters including special characters and numbers."
+            ToastAndroid.show(
+              "Email address ${this.state.email} already in use.",
+              ToastAndroid.SHORT
             );
+          case "auth/invalid-email":
+            ToastAndroid.show(
+              "Email address ${this.state.email} is invalid.",
+              ToastAndroid.SHORT
+            );
+
+          case "auth/operation-not-allowed":
+            ToastAndroid.show("Error during sign up.", ToastAndroid.SHORT);
+
+          case "auth/weak-password":
+            ToastAndroid.show(
+              "Password is not strong enough. Add additional characters including special characters and numbers.",
+              ToastAndroid.SHORT
+            );
+
           default:
-            console.log(error.message);
+            ToastAndroid.show("" + error.message, ToastAndroid.SHORT);
         }
       });
   };
-  // userDetail = (user) => {
-  //   var user = firebase.auth().currentUser;
-  //   var name, email, photoUrl, uid, emailVerified;
 
-  //   if (user != null) {
-  //     name = user.displayName;
-  //     email = user.email;
-  //     photoUrl = user.photoURL;
-  //     emailVerified = user.emailVerified;
+  logout() {
+    // GoogleSignin.revokeAccess();
+    // GoogleSignin.signOut();
+    // firebase.auth().signOut();
+  }
+  sendEmailVerification = () => {
+    console.log("hello.......");
 
-  //     console.log(email);
-  //   }
-  // };
-  // check validation for the input fields
-
+    firebase
+      .auth()
+      .currentUser.sendEmailVerification(actionCodeSettings)
+      .then(() => this.props.navigation.navigate("HomeScreen"));
+  };
   checkValidation = () => {
-    const { email } = this.state;
-    const { password } = this.state;
+    const { email, password } = this.state;
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (email === "") {
-      // Alert.alert("Please fill the Email !")
       ToastAndroid.show("Please fill the Email !...", ToastAndroid.SHORT);
     } else if (password === "") {
-      // Alert.alert("Password can not be empty.")
       ToastAndroid.show("Password can not be empty....", ToastAndroid.SHORT);
     } else if (password.length < 5) {
-      //Alert.alert("password should be more than 6 characters." )
       ToastAndroid.show(
         "password should be more than 6 characters....",
         ToastAndroid.SHORT
       );
     } else if (reg.test(email) === false) {
-      //Alert.alert("Invalid Email address !" )
       ToastAndroid.show("Invalid Email address !....", ToastAndroid.SHORT);
       this.setState({ email: email });
       return false;
@@ -104,11 +116,23 @@ export default class SignUp extends Component {
   };
 
   openSignInScreen = () => {
-    this.props.navigation.navigate("VerificationScreen");
+    this.props.navigation.navigate("LoginScreen");
     this.setState({ email: "" });
     this.setState({ password: "" });
   };
   render() {
+    var actionCodeSettings = {
+      url: "https://workorderdemo.page.link/test",
+      // iOS: {
+      //   bundleId: 'com.myurl.ios'
+      // },
+      android: {
+        packageName: "com.workorderdemo",
+        installApp: true,
+        minimumVersion: "12"
+      },
+      handleCodeInApp: true
+    };
     return (
       <View style={stylesContent.container}>
         <Image
@@ -178,12 +202,6 @@ export default class SignUp extends Component {
         >
           <Text style={{ color: "white", fontSize: 17 }}> Sign Up </Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity
-          style={stylesContent.button1}
-          onPress={this.checkValidation}
-        >
-          <Text style={{ color: "white", fontSize: 17 }}> Verify email </Text>
-        </TouchableOpacity> */}
       </View>
     );
   }

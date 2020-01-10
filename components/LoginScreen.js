@@ -34,7 +34,7 @@ export default class LoginScreen extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     GoogleSignin.configure({
       webClientId:
         "173381546713-2iuu7kfsvmngut35kq36emsi9mab535p.apps.googleusercontent.com",
@@ -45,58 +45,89 @@ export default class LoginScreen extends Component {
   }
 
   firebaseGoogleLogin = async () => {
-    try {
-      // add any configuration settings here:
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      console.log("user info: ", userInfo);
-      this.setState({ userInfo: userInfo, loggedIn: true });
-      // create a new firebase credential with the token
-      const credential = firebase.auth.GoogleAuthProvider.credential(
-        userInfo.idToken,
-        userInfo.accessToken
-      );
-      // login with credential
-      const firebaseUserCredential = await firebase
-        .auth()
-        .signInWithCredential(credential);
-    } catch (error) {
-      console.log(error);
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-        toastr.showToast("cancelled sign in");
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (f.e. sign in) is in progress already
-        toastr.showToast("signIn in progress.");
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-        toastr.showToast("play services not available or outdated");
-      } else {
-        // some other error happened
-        toastr.showToast(error.message);
-      }
-    }
+    // add any configuration settings here:
+    await GoogleSignin.hasPlayServices();
+    const userInfo = await GoogleSignin.signIn();
+    console.log("user info: ", userInfo);
+    this.setState({ userInfo: userInfo, loggedIn: true });
+    // create a new firebase credential with the token
+    const credential = firebase.auth.GoogleAuthProvider.credential(
+      userInfo.idToken,
+      userInfo.accessToken
+    );
+    // login with credential
+    const firebaseUserCredential = await firebase
+      .auth()
+      .signInWithCredential(credential)
+      .catch(error => {
+        switch (error.code) {
+          case "SIGN_IN_CANCELLED":
+            ToastAndroid.show("Sign in cancelled!...", ToastAndroid.SHORT);
+          case "IN_PROGRESS":
+            ToastAndroid.show("In progress!...", ToastAndroid.SHORT);
+          case "PLAY_SERVICES_NOT_AVAILABLE":
+            ToastAndroid.show(
+              "Play_Services not available!...",
+              ToastAndroid.SHORT
+            );
+          default:
+            ToastAndroid.show("" + error.message, ToastAndroid.SHORT);
+        }
+      });
   };
 
   handleLogin = () => {
     // Firebase stuff...
-    console.log("handleLogin");
     const { email, password } = this.state;
-    try {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(res => {
-          console.log(res.user.email);
-        });
-    } catch (error) {
-      //console.log(error.toString(error));
-      ToastAndroid.show(error.message, ToastAndroid.SHORT);
-    }
+    // try {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => this.props.navigation.navigate("HomeScreen"))
+      .catch(error => {
+        switch (error.code) {
+          case "auth/app-deleted":
+            ToastAndroid.show(
+              " instance of FirebaseApp has been deleted!...",
+              ToastAndroid.SHORT
+            );
+          case "auth/app-not-authorized":
+            ToastAndroid.show(" app-not-authorized!...", ToastAndroid.SHORT);
+          case "auth/invalid-api-key":
+            ToastAndroid.show(" invalid-api-key!...", ToastAndroid.SHORT);
+          case "auth/user-token-expired":
+            ToastAndroid.show(" user-token-expired!...", ToastAndroid.SHORT);
+          default:
+            ToastAndroid.show("" + error.message, ToastAndroid.SHORT);
+        }
+      });
   };
+
+  //.then(this.switchScreen()
+  // firebase.auth().onAuthStateChanged(function(user) {
+  //   console.log("user:::::::::::::", user.emailVerified.toString());
+  //   if (user.emailVerified.toString() == false) {
+  //     // User is signed in.
+  //     this.switchScreen();
+  //     console.log("if condition called")
+  //   } else {
+  //     // No user is signed in.
+  //     ToastAndroid.show(
+  //       "User is not verified yet!...",
+  //       ToastAndroid.SHORT
+  //     );
+  //                   console.log("else condition called")
+
+  //   }
+  // })
+  // );
+  //  catch (error) {
+  //   console.log(error.toString(error));
+  //   ToastAndroid.show(error.message, ToastAndroid.SHORT);
+  // }
+
   checkValidation = () => {
-    const { email } = this.state;
-    const { password } = this.state;
+    const { email, password } = this.state;
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (email === "") {
       // Alert.alert("Please fill the Email !")
@@ -120,11 +151,11 @@ export default class LoginScreen extends Component {
     }
   };
 
-  OpenHomeScreen = () => {
+  switchScreen() {
     this.props.navigation.navigate("App");
     this.setState({ email: "" });
     this.setState({ password: "" });
-  };
+  }
 
   OpenSignUpScreen = () => {
     this.props.navigation.navigate("SignUp");

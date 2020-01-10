@@ -90,7 +90,7 @@ export default class HomeScreen extends Component {
           dataSource: responseJson
         
         });
-          console.log('list data '+ dataSource);
+         // console.log('list data '+ dataSource);
       })
       .catch(error => console.log(error));
   };
@@ -122,14 +122,14 @@ export default class HomeScreen extends Component {
   renderItem = data => (
     <MyListItem
       onItemPress={() =>
-        this.props.navigation.navigate("DetailScreen", { id: data.item })
+        this.props.navigation.navigate("DetailScreen", { id: data.item.id })
       }
       itemData={data}
     />
   );
 
   render() {
-    console.log("Statee", this.state.dataSource);
+    //console.log("Statee", this.state.dataSource);
     if (this.state.loading) {
       return (
         <View style={styles.loader}>

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import com.workorderdemo.BuildConfig;
 import com.workorderdemo.R;
 
+// @react-native-community/async-storage
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // react-native-firebase
 import io.invertase.firebase.RNFirebasePackage;
 // react-native-gesture-handler
@@ -22,6 +24,8 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
+// react-native-version-check
+import io.xogus.reactnative.versioncheck.RNVersionCheckPackage;
 
 public class PackageList {
   private Application application;
@@ -67,10 +71,12 @@ public class PackageList {
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
+      new AsyncStoragePackage(),
       new RNFirebasePackage(),
       new RNGestureHandlerPackage(),
       new RNGoogleSigninPackage(),
-      new VectorIconsPackage()
+      new VectorIconsPackage(),
+      new RNVersionCheckPackage()
     ));
   }
 }

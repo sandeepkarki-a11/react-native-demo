@@ -1,26 +1,68 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.workorderdemo">
+    package="com.workorderdemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-      android:name=".MainApplication"
-      android:label="@string/app_name"
-      android:icon="@mipmap/ic_launcher"
-      android:roundIcon="@mipmap/ic_launcher_round"
-      android:allowBackup="false"
-      android:theme="@style/AppTheme">
-      <activity
-        android:name=".MainActivity"
+        android:name=".MainApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="adjustResize">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-      </activity>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+            <!-- Branch URI scheme -->
+            <!--<intent-filter>-->
+                <!--<data-->
+                    <!--android:host="open"-->
+                    <!--android:scheme="reactdemo." />-->
+                <!--<action android:name="android.intent.action.VIEW" />-->
+
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <!--<category android:name="android.intent.category.BROWSABLE" />-->
+            <!--</intent-filter>-->
+
+             <!--Branch App Links -->
+            <!--<intent-filter android:autoVerify="true">-->
+                <!--<action android:name="android.intent.action.VIEW" />-->
+
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <!--<category android:name="android.intent.category.BROWSABLE" />-->
+
+                <!--<data-->
+                    <!--android:host="workorderdemo.page.link/test"-->
+                    <!--android:scheme="https" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <!--<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />-->
+        <!--&lt;!&ndash; Branch init &ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="io.branch.sdk.BranchKey"-->
+            <!--android:value="key_live_niHJxAfFevGbGWJwsgd4HhgjwCfbtPi9" />-->
+        <!--&lt;!&ndash; Branch testing (TestMode "true" to simulate fresh installs on dev environment) &ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="io.branch.sdk.TestMode"-->
+            <!--android:value="false" />-->
+
+
+        <!--&lt;!&ndash; Branch install referrer tracking &ndash;&gt;-->
+        <!--<receiver-->
+            <!--android:name="io.branch.referral.InstallListener"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

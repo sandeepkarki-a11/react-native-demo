@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/sandeep/ReactTestProjectsFolder/WorkOrderDemo/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ro/values-ro.xml",
+            "outputFile": "/home/sandeep/react-native-demo/react-native-demo/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ro/values-ro.xml",
             "map": [
                 {
                     "source": "/home/sandeep/.gradle/caches/transforms-2/files-2.1/3e44055b46a3e6db3359fb5e9639f38a/res/values-ro/values.xml",

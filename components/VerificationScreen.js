@@ -24,29 +24,12 @@ export default class VerificationScreen extends Component {
 
   }
 
-//     storeData = async () => {
-//   try {
-//     await AsyncStorage.setItem('@isLogin',currentUser && currentUser.emailVerified.toString())
-//   } catch (e) {
-//     // saving error
-//   }
-// }
-  checkValidation = () => {
+  sendVerification = () => {
     firebase
       .auth()
       .currentUser.sendEmailVerification()
       .then(() => 
       this.props.navigation.navigate("LoadingScreen"))
-      // .then(
-      //   function() {
-      //     // Email sent.
-      //     this.props.navigation.navigate("LoadingScreen");
-      //     //ToastAndroid.show("Email sent.", ToastAndroid.SHORT);
-      //   },
-      //   function(error) {
-      //     // An error happened.
-      //   }
-      // );
   };
 
   render() {
@@ -55,8 +38,7 @@ export default class VerificationScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={{ fontSize: 20 }}>
-          {" "}
-          Hi{" "}
+          Hi
           <Text style={{ color: "#e93766", fontSize: 20 }}>
             {currentUser && currentUser.email}
           </Text>
@@ -70,7 +52,7 @@ export default class VerificationScreen extends Component {
         
         <TouchableOpacity
           style={stylesContent.button1}
-          onPress={this.checkValidation}
+          onPress={this.sendVerification}
         >
           <Text style={{ color: "white", fontSize: 17 }}> Verify email </Text>
         </TouchableOpacity>

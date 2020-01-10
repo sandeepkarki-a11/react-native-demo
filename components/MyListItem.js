@@ -11,8 +11,6 @@ export default class MyListItem extends PureComponent {
     super(props);
   }
   render() {
-    //console.log("props", this.props);
-   console.log("prop id", this.props.itemData.item.id)
     const { onItemPress } = this.props;
     return (
       <View style={{ flex: 1, backgroundColor: "#dcd7d7" }}>

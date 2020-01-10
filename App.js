@@ -8,7 +8,6 @@ import HomeScreen from './components/HomeScreen';
 import SplashScreen from './components/SplashScreen';
 import DetailScreen from './components/DetailScreen';
 import firebase from 'react-native-firebase';
-
 var firebaseConfig = {
     apiKey: "AIzaSyAcCyBjbagIkgkIXqsCGcZCR2noe53G33M",
     authDomain: "reactlogin-4e236.firebaseapp.com",
@@ -23,6 +22,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const AppStack = createStackNavigator({
+   
   HomeScreen: {
     screen: HomeScreen,
     navigationOptions: {
@@ -47,7 +47,7 @@ const authStack = createStackNavigator({
     navigationOptions: {
       header: null,
     },
-  },
+  }
 });
 
 export default createAppContainer(

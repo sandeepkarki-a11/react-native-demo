@@ -29,9 +29,7 @@ export default class DetailScreen extends Component {
     console.log("detail screen ids =", id);
     const url = `https://dummy.restapiexample.com/api/v1/employee/${id}`;
 
-    fetch(url, {
-      method: "GET"
-    })
+    fetch(url)
       .then(response => response.json())
       .then(data => {
         // Work with JSON data here
@@ -40,11 +38,11 @@ export default class DetailScreen extends Component {
           loading: false,
           dataa: data
         });
+      })
+      .catch(err => {
+        // Do something for an error here
+        console.log(err);
       });
-      // .catch(err => {
-      //   // Do something for an error here
-      //   console.log(err.getMessage());
-      // });
   }
 
   componentWillMount() {
@@ -87,17 +85,6 @@ export default class DetailScreen extends Component {
               style={styles.imageStyle}
               source={{ uri: this.state.fileUri }}
             />
-
-            {/* <View
-              style={{
-                borderBottomColor: "#6e7273",
-                borderBottomWidth: 1,
-                marginTop: 10,
-                marginLeft: wp("10%"),
-                marginRight: wp("10%")
-              }}
-            /> */}
-
             <View
               style={{
                 marginTop: 20,
@@ -155,8 +142,10 @@ export default class DetailScreen extends Component {
                     <Text
                       style={{
                         marginTop: 10,
-                        marginLeft: 10,
+                        // flex: 1, 
+                        // flexWrap: 'wrap',
                         fontSize: 15,
+                        marginRight: wp("20%"),
                         alignSelf: "center",
                         fontFamily: "Abel-Regular"
                       }}
